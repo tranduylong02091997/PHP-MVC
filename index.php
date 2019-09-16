@@ -5,7 +5,7 @@ define('ROOT', str_replace("/index.php", "", $_SERVER["SCRIPT_FILENAME"]));
 define('SRCROOT', str_replace("mvc", "mvc/src/", ROOT));//mvc->mvc/src
 
 require_once(ROOT."/vendor/autoload.php"); //load mvc/vendor/autoload.php
-
+echo "Tran Duylong";
 use AHT\Dispatcher;
 
 $dispatch = new Dispatcher();
