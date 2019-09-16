@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('Asia/Ho_Chi_Minh');
+ date_default_timezone_set('Asia/Ho_Chi_Minh');
 define('WEBROOT', str_replace("Webroot/index.php", "", $_SERVER["SCRIPT_NAME"]));
 define('ROOT', str_replace("/index.php", "", $_SERVER["SCRIPT_FILENAME"]));
 define('SRCROOT', str_replace("mvc", "mvc/src/", ROOT));//mvc->mvc/src
@@ -10,5 +10,4 @@ use AHT\Dispatcher;
 
 $dispatch = new Dispatcher();
 $dispatch->dispatch();
-
 ?>

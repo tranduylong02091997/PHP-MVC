@@ -16,7 +16,7 @@ class Dispatcher
         Router::parse($this->request->url, $this->request);
 
         $controller = $this->loadController();
-        call_user_func_array([$controller, $this->request->action], $this->request->params);//return object namespace va cac ham
+        call_user_func_array([$controller, $this->request->action], $this->request->params);// gọi hàm của đối tượng với 1 loạt tham số truyền trong mảng. 
     }
 
     public function loadController()

@@ -23,8 +23,8 @@ class tasksController extends Controller
     }
 
 /**
- * function create() 1 object
- * get value element
+ * function create() is Insert 1 object
+ * get value element on view
  * and implement insert in database through layer taskRepository
  */
     public function create()
