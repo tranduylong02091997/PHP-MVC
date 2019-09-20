@@ -13,15 +13,21 @@ class Controller
 
     public function render($filename)
     {
-        extract($this->vars);//Chuyển mảng dữ liệu thành từng biến
-        ob_start();//bat dau load du lieu
-        require SRCROOT . "Views/" . ucfirst(str_replace('Controller', '', str_replace("AHT\\Controllers\\", "", get_class($this)))) . '/' . $filename . '.php';
+        extract($this->vars);
+        ob_start();
+        $namespace = get_class($this);
+        $namespaceArr = explode("\\", $namespace);
+        $nameController = end($namespaceArr);
+        require(ROOT . "Views/" . ucfirst(str_replace('Controller', '', $nameController)) . '/' . $filename . '.php');
         $content_for_layout = ob_get_clean();
 
-        if ($this->layout == false) {
+        if ($this->layout == false)
+        {
             $content_for_layout;
-        } else {
-            require SRCROOT . "Views/Layouts/" . $this->layout . '.php';
+        }
+        else
+        {
+            require(ROOT . "Views/Layouts/" . $this->layout . '.php');
         }
     }
 

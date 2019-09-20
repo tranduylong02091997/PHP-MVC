@@ -1,24 +1,25 @@
 <?php
 namespace AHT\Config;
 
-use PDO;
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
 
 class Database
 {
-    private static $bdd = null;
-
-    private function __construct()
-    {       
-    }
-
-/**
- * connect to Database throught PDO
-*/
-    public static function getBdd()
+	private function __construct(){}
+		
+    public static function getConn()
     {
-        if (is_null(self::$bdd)) {
-            self::$bdd = new PDO("mysql:host=localhost;dbname=mvc", 'root', '');
-        }
-        return self::$bdd;
+        $dbParams = array(
+			'driver'   => 'pdo_mysql',
+			'user'     => 'root',
+			'password' => '',
+			'dbname'   => 'doctrine_mvc',
+		);
+		$paths = array("/path/to/entity-files");
+		$isDevMode = true;
+		$config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
+		$entityManager = EntityManager::create($dbParams, $config);
+		return $entityManager;
     }
 }

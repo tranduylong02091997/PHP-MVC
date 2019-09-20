@@ -12,8 +12,9 @@ class Dispatcher
     public function dispatch()
     {
         $this->request = new Request();
-
+       
         Router::parse($this->request->url, $this->request);
+        //var_dump(Router::parse($this->request->url, $this->request));
 
         $controller = $this->loadController();
         call_user_func_array([$controller, $this->request->action], $this->request->params);// gọi hàm của đối tượng với 1 loạt tham số truyền trong mảng. 
@@ -21,9 +22,9 @@ class Dispatcher
 
     public function loadController()
     {
-        $name = $this->request->controller . "Controller";
-        $file = "AHT\\Controllers\\" . $name;
-        $controller = new $file();
+        $name = 'AHT\\Controllers\\' . ucfirst($this->request->controller) . "Controller";
+        // $file = "AHT\\Controllers\\" . $name;
+        $controller = new $name();
         return $controller;
     }
 

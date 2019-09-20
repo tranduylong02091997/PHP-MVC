@@ -1,8 +1,6 @@
 <?php
 namespace AHT\Models;
 
-use AHT\Models\TaskModel;
-use AHT\Models\TaskResourceModel;
 
 /**
  * intermediate layer between layer controller and model
@@ -10,36 +8,36 @@ use AHT\Models\TaskResourceModel;
 
 class TaskRepository
 {
-    protected $taskResourceModel;
+    public $objResourceModel;
 
-    public function __construct(TaskModel $model)
+    public function __construct()
     {
-        $this->taskResourceModel = new TaskResourceModel($model);
+        $this->objResourceModel = new TaskResourceModel();
     }
 
     public function add($model)
     {
-        return $this->taskResourceModel->save($model);
+        return $this->objResourceModel->add($model);
     }
 
-    public function edit($id)
+    public function edit($model)
     {
-        return $this->taskResourceModel->edit($id);
+        return $this->objResourceModel->edit($model);
     }
 
     public function delete($id)
     {
-        return $this->taskResourceModel->delete($id);
+        return $this->objResourceModel->delete($id);
     }
 
-    public function showTask_id($id)
+    public function get($id)
     {
-        return $this->taskResourceModel->showTask_id($id);
+        return $this->objResourceModel->get($id);
     }
 
-    public function showAllTask()
+    public function getAll()
     {
-        return $this->taskResourceModel->showAllTask();
+        return $this->objResourceModel->getAll();
     }
 
 }

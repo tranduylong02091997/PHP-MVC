@@ -1,5 +1,6 @@
 <!doctype html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8">
 
     <title>MVC Todo</title>
@@ -37,7 +38,7 @@
 
 <main role="main" class="container">
     <div class="starter-template">
-        <?php echo $content_for_layout;?>
+        <?php echo $content_for_layout; ?>
     </div>
 </main>
 

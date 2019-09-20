@@ -2,24 +2,29 @@
 namespace AHT\Controllers;
 
 use AHT\Core\Controller;
-use AHT\Models\TaskModel;
 use AHT\Models\TaskRepository;
+use AHT\Models\Tasks;
 
 class tasksController extends Controller
 {
     private $task;
     private $taskRepository;
+    private $objTask;
+
+    /**
+     * Class constructor.
+     */
     public function __construct()
     {
-        $this->task = new TaskModel();
-        $this->taskRepository = new TaskRepository($this->task);
+        $this->task = new TaskRepository();
+        $this->objTask = new Tasks();
     }
-
     public function index()
     {
-        $d['tasks'] = $this->taskRepository->showAllTask();
+        $d['tasks'] = $this->task->getAll();
         $this->set($d);
         $this->render("index");
+        
     }
 
 /**
@@ -30,15 +35,14 @@ class tasksController extends Controller
     public function create()
     {
         if (isset($_POST["title"])) {
-            $this->task->setTitle($_POST["title"]);
-            $this->task->setDescription($_POST["description"]);
-            $this->task->setUpdated_at(date('Y-m-d H:i:s'));
-            $this->task->setCreated_at(date('Y-m-d H:i:s'));
-            if ($this->taskRepository->add($this->task)) {
-                header("Location: http://localhost:8080/mvc/");
-            } else {
-                echo "Chưa thêm được bản ghi";
-            }
+            $this->objTask->setTitle($_POST["title"]);
+            $this->objTask->setDescription($_POST["description"]);
+            $this->objTask->setCreated_at(\DateTime::createFromFormat('Y-m-d H-i-s', date("Y-m-d H-i-s")));
+            $this->objTask->setUpdated_at(\DateTime::createFromFormat('Y-m-d H-i-s', date("Y-m-d H-i-s")));
+            $this->task->add($this->objTask);
+
+            header("Location: http://localhost:8080/mvc/src/");
+
         }
         $this->render("create");
     }
@@ -49,32 +53,31 @@ class tasksController extends Controller
  * edit in database through layer taskRepository
  */
     public function edit($id)
-    {
-        $d["task"] = $this->taskRepository->showTask_id($id);
+    {   
+        $d["task"] = $this->task->get($id);
         if (isset($_POST["title"])) {
-            $this->task->setTitle($_POST["title"]);
-            $this->task->setDescription($_POST["description"]);
-            $this->task->setUpdated_at(date('Y-m-d H:i:s'));
-            if ($this->taskRepository->edit($id)) {
-                header("Location: http://localhost:8080/mvc/");
-            }
-        } else {
-            $this->set($d);
-            $this->render("edit");
+            $this->objTask->setId($id);
+            $this->objTask->setTitle($_POST["title"]);
+            $this->objTask->setDescription($_POST["description"]);
+            $this->objTask->setCreated_at(\DateTime::createFromFormat('Y-m-d H-i-s', date("Y-m-d H-i-s")));
+            $this->objTask->setUpdated_at(\DateTime::createFromFormat('Y-m-d H-i-s', date("Y-m-d H-i-s")));
+            $this->task->edit($this->objTask);
+            header("Location: http://localhost:8080/mvc/src");
         }
+         $this->set($d);
+        $this->render("edit");
+
     }
 
 /**
  * function delete() 1 object
- * get value id  and implement 
+ * get value id  and implement
  * delete in database through layer taskRepository
-*/
+ */
     public function delete($id)
     {
-        if ($this->taskRepository->delete($id)) {
-            header("Location: http://localhost:8080/mvc/");
-        } else {
-            echo "Chưa xóa được bản ghi";
-        }
+        $this->task->delete($id);
+        header("Location: http://localhost:8080/mvc/src");
+
     }
 }
