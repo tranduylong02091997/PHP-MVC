@@ -1,6 +1,6 @@
 <h1>Tasks</h1>
 <div class="row col-md-12 centered" style="margin-left: 11px;">
-    <table class="table table-bordered custab" class="text-table">
+    <table class="table table-bordered custab" class="text-table" >
         <thead>
         <a href="/mvc/src/Webroot/tasks/create/" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new task</a>
         <tr>

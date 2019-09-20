@@ -8,11 +8,10 @@ use AHT\Models\Tasks;
 class tasksController extends Controller
 {
     private $task;
-    private $taskRepository;
     private $objTask;
 
     /**
-     * Class constructor.
+     * function constructor.
      */
     public function __construct()
     {

@@ -14,7 +14,6 @@ class Dispatcher
         $this->request = new Request();
        
         Router::parse($this->request->url, $this->request);
-        //var_dump(Router::parse($this->request->url, $this->request));
 
         $controller = $this->loadController();
         call_user_func_array([$controller, $this->request->action], $this->request->params);// gọi hàm của đối tượng với 1 loạt tham số truyền trong mảng. 

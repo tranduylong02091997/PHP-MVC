@@ -1,0 +1,53 @@
+.btn {
+    margin-bottom: 4px;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #4bb150;
+    border-color: #0062cc;
+}
+
+.btn-primary {
+    background-color: #9e9e9e26;
+    color: #000000ad;
+    border-color: #9e9e9e69;
+}
+
+.btn-info {
+    background-color: #9e9e9e26;
+    color: #000000ad;
+    border: 1px solid #e7e7e7;
+    box-shadow: 0px 1px 1px;
+}
+
+.btn-info:hover {
+    color: #fff;
+    background-color: #4bb150;
+    border-color: #0062cc;
+}
+
+.btn-danger {
+    background-color: #9e9e9e26;
+    color: #000000ad;
+    border: 1px solid #e7e7e7;
+    box-shadow: 0px 1px 1px;
+}
+
+.btn-danger:hover {
+    color: #fff;
+    background-color: #f75507db;
+    border-color: #0062cc;
+}
+
+.table {
+    box-shadow: 1px 1px 1px #6666669c;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #ddd;
+}

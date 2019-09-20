@@ -2,22 +2,19 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8">
-
     <title>MVC Todo</title>
-
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="starter-template.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="Views/Task.css">
     <style>
         body {
             padding-top: 5rem;
         }
         .starter-template {
-            padding: 3rem 1.5rem;
+            padding: 0rem 1.5rem;
             text-align: center;
         }
-    </style>
+        
+        </style>
 </head>
 
 <body>
