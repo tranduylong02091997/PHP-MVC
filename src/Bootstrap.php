@@ -22,7 +22,8 @@ class Bootstrap
 	
 		// obtaining the entity manager
 		return $entityManager = EntityManager::create($conn, $config);
-		mysqli_set_charset($entityManager, 'UTF8');
+		//bất cứ khi nào ta muốn lưu trữ dữ liệu
+		// vào database	thì phải thông qua EntitysManager
 		
     }
     

@@ -22,7 +22,6 @@ class Dispatcher
     public function loadController()
     {
         $name = 'AHT\\Controllers\\' . ucfirst($this->request->controller) . "Controller";
-        // $file = "AHT\\Controllers\\" . $name;
         $controller = new $name();
         return $controller;
     }
