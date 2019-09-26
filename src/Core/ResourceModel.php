@@ -17,12 +17,11 @@ class ResourceModel implements ResourcseModelInterFace
     {
         $this->entityManager = Bootstrap::getEntityManager();
         $this->objModel = new Tasks();
-        
     }
-   
+
 /**
  * @function add()
- * get properties of model then Insert in Database 
+ * get properties of model then Insert in Database
  */
     public function add($model)
     {
@@ -37,8 +36,8 @@ class ResourceModel implements ResourcseModelInterFace
     public function delete($id)
     {
         $this->objModel = $this->entityManager->find('\AHT\Models\Tasks', $id);
-		$this->entityManager->remove($this->objModel);
-		$this->entityManager->flush();
+        $this->entityManager->remove($this->objModel);
+        $this->entityManager->flush();
     }
 
 /**
@@ -49,12 +48,12 @@ class ResourceModel implements ResourcseModelInterFace
     {
         $propertiesArray = $this->objModel->getProperties($model);
         $id = $propertiesArray['id'];
-		$this->objModel = $this->entityManager->find('\AHT\Models\Tasks', $id);
-		foreach ($propertiesArray as $key => $value) {
-			$this->objModel->{'set' . ucfirst($key)}($value);
+        $this->objModel = $this->entityManager->find('\AHT\Models\Tasks', $id);
+        foreach ($propertiesArray as $key => $value) {
+            $this->objModel->{'set' . ucfirst($key)}($value);
         }
-		$this->entityManager->persist($this->objModel);
-		$this->entityManager->flush();
+        $this->entityManager->persist($this->objModel);
+        $this->entityManager->flush();
     }
 
 /**
@@ -63,22 +62,22 @@ class ResourceModel implements ResourcseModelInterFace
  */
     public function get($id)
     {
-        $findObjec = $this->entityManager->find('\AHT\Models\Tasks', $id); 
+        $findObjec = $this->entityManager->find('\AHT\Models\Tasks', $id);
         return $this->objModel->getProperties($findObjec);
     }
 
 /**
  * @function getAllT()
- * show value properties of records  in model 
+ * show value properties of records  in model
  */
     public function getAll()
     {
         $tasksRepository = $this->entityManager->getRepository('\AHT\Models\Tasks');
         $tasks = $tasksRepository->findAll();
         $value = [];
-		foreach ($tasks as $task) {
-			$value [] = $this->objModel->getProperties($task); 
-		}      
-		return $value;
+        foreach ($tasks as $task) {
+            $value[] = $this->objModel->getProperties($task);
+        }
+        return $value;
     }
 }
