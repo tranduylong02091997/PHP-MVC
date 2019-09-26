@@ -1,9 +1,11 @@
 <?php
 namespace AHT\Models;
+
+use AHT\Core\Model;
 /**
 * @Entity @Table(name="tasks")
 */
-class Tasks
+class Tasks extends Model
 {
      /** @Id @Column(type="integer") @GeneratedValue */
      protected $id;
@@ -63,9 +65,5 @@ class Tasks
     public function getTitle()
     {
         return $this->title;
-    }
-    
-    public function getProperties($model){
-        return get_object_vars($model);
     }
 }

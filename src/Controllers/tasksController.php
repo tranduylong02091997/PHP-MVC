@@ -10,13 +10,13 @@ class tasksController extends Controller
     private $task;
     private $objTask;
 
-    /**
-     * function constructor.
-     */
+/**
+ * function constructor.
+ */
     public function __construct()
     {
-        $this->task = new TaskRepository();
         $this->objTask = new Tasks();
+        $this->task = new TaskRepository($this->objTask);
     }
     public function index()
     {

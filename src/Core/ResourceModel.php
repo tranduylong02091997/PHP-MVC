@@ -2,7 +2,7 @@
 namespace AHT\Core;
 
 use AHT\Bootstrap;
-use AHT\Core\Model;
+use AHT\Models\Tasks;
 
 class ResourceModel implements ResourcseModelInterFace
 {
@@ -15,82 +15,70 @@ class ResourceModel implements ResourcseModelInterFace
  */
     public function _init($table, $id, $model)
     {
-        $this->table = $table;
-        $this->id = $id;
-        $this->model = $model;
+        $this->entityManager = Bootstrap::getEntityManager();
+        $this->objModel = new Tasks();
+        
     }
-
+   
 /**
- * @function save()
- * get properties of model then Insert in Database through Prepare in PDO
+ * @function add()
+ * get properties of model then Insert in Database 
  */
-    public function save($model)
+    public function add($model)
     {
-        $properties = $this->model->getProperties(); //get value and properties of model
-        $keys = "";
-        $values = "";
-        unset($properties['id']);
-        foreach ($properties as $key => $value) {
-            $keys .= $key . ", ";
-            $values .= "'$value'" . ", ";}
-
-        $sql = "INSERT INTO " . $this->table . " (" . rtrim($keys, ", ") . ") VALUES (" . rtrim($values, ", ") . ")";
-        $reg = Database::getBdd()->prepare($sql); //loaded Prepare statement inside PDO
-        return $reg->execute(); //Execute the command
-
+        $this->entityManager->persist($model);
+        $this->entityManager->flush();
     }
 
 /**
  * @function delete()
- * get properties id of record then delete record in model through Prepare in PDO
+ * get properties id of record then delete record in model
  */
     public function delete($id)
     {
-        $sql = "DELETE FROM " . $this->table . " WHERE " . $this->id . "= ?";
-        $req = Database::getBdd()->prepare($sql);
-        return $req->execute([$id]);
+        $this->objModel = $this->entityManager->find('\AHT\Models\Tasks', $id);
+		$this->entityManager->remove($this->objModel);
+		$this->entityManager->flush();
     }
 
 /**
  * @function edit()
- * get properties of record then update record in model through Prepare in PDO
+ * get properties of record then update record in model
  */
-    public function edit($id)
+    public function edit($model)
     {
-        $properties = $this->model->getProperties();
-        unset($properties['id']);
-        unset($properties['created_at']);
-        $update = "";
-
-        foreach ($properties as $key => $value) {
-            $update .= $key . " = '" . $value . "', ";
+        $propertiesArray = $this->objModel->getProperties($model);
+        $id = $propertiesArray['id'];
+		$this->objModel = $this->entityManager->find('\AHT\Models\Tasks', $id);
+		foreach ($propertiesArray as $key => $value) {
+			$this->objModel->{'set' . ucfirst($key)}($value);
         }
-        $sql = "UPDATE " . $this->table . " SET " . trim($update, ", ") . " WHERE " . $this->id . "= ?";
-        $reg = Database::getBdd()->prepare($sql);
-        return $reg->execute([$id]);
+		$this->entityManager->persist($this->objModel);
+		$this->entityManager->flush();
     }
 
 /**
- * @function showTask_id()
- * get properties id of record then show record in model through Prepare in PDO
+ * @function get($id)
+ * get properties id of record then show record in model
  */
-    public function showTask_id($id)
+    public function get($id)
     {
-        $sql = "SELECT * FROM " . $this->table . " WHERE " . $this->id . " = ?;";
-        $reg = Database::getBdd()->prepare($sql);
-        $reg->execute([$id]);
-        return $reg->fetch(); //return array
+        $findObjec = $this->entityManager->find('\AHT\Models\Tasks', $id); 
+        return $this->objModel->getProperties($findObjec);
     }
 
 /**
- * @function showAllTask()
- * show value properties of records  in model through Prepare in PDO
+ * @function getAllT()
+ * show value properties of records  in model 
  */
-    public function showAllTask()
+    public function getAll()
     {
-        $sql = "SELECT * FROM " . $this->table;
-        $reg = Database::getBdd()->prepare($sql);
-        $reg->execute();
-        return $reg->fetchAll(); //return array include all value of record in table
+        $tasksRepository = $this->entityManager->getRepository('\AHT\Models\Tasks');
+        $tasks = $tasksRepository->findAll();
+        $value = [];
+		foreach ($tasks as $task) {
+			$value [] = $this->objModel->getProperties($task); 
+		}      
+		return $value;
     }
 }

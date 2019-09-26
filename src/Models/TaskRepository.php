@@ -1,7 +1,8 @@
 <?php
 namespace AHT\Models;
 
-
+use AHT\Models\Tasks;
+use AHT\Models\TaskModel;
 /**
  * intermediate layer between layer controller and model
  */
@@ -10,9 +11,9 @@ class TaskRepository
 {
     public $objResourceModel;
 
-    public function __construct()
+    public function __construct(Tasks $model)
     {
-        $this->objResourceModel = new TaskResourceModel();
+        $this->objResourceModel = new TaskModel($model);
     }
 
     public function add($model)
